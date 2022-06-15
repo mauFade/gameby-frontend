@@ -4,7 +4,6 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Feed from "./pages/Feed";
 import Post from "./pages/Post";
-import Search from "./pages/Search";
 
 const Router = () => {
   return (
@@ -14,8 +13,6 @@ const Router = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/feed" element={<Feed />} />
         <Route path="/post" element={<Post />} />
-        <Route path="/profile" element={<Search />} />
-        <Route path="/search" element={<Search />} />
         <Route path="/" element={<Navigate to="/login" />} />
       </Routes>
     </BrowserRouter>
