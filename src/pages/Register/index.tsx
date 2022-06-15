@@ -14,7 +14,6 @@ const Register = () => {
   const [cellphone, setCellphone] = useState<string>("");
   const [city, setCity] = useState<string>("");
   const [country, setCountry] = useState<string>("");
-  const [avatar, setAvatar] = useState<string>("");
 
   const navigate = useNavigate();
 
@@ -58,12 +57,6 @@ const Register = () => {
     event.preventDefault();
 
     setCountry(event.target.value);
-  };
-
-  const handleChangeAvatar = (event: any) => {
-    event.preventDefault();
-
-    setAvatar(event.target.value);
   };
 
   const handleSubmit = async (event: any) => {
@@ -139,13 +132,6 @@ const Register = () => {
             value={country}
             onChange={handleChangeCountry}
             placeholder="País"
-            className="p-4 outline-none hover:bg-lighterblack border-b border-b-lighterblack focus:border-grey text-lightgrey bg-transparent text-center"
-          />
-          <input
-            name="avatar"
-            type="file"
-            value={avatar}
-            onChange={handleChangeAvatar}
             className="p-4 outline-none hover:bg-lighterblack border-b border-b-lighterblack focus:border-grey text-lightgrey bg-transparent text-center"
           />
         </div>

@@ -48,7 +48,6 @@ const Post = () => {
     event.preventDefault();
 
     api.get(`/users?gamertag=${search}`).then((res: any) => {
-      console.log(res.data.data);
       navigate("/search");
     });
   };

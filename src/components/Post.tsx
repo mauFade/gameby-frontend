@@ -1,6 +1,3 @@
-import avatar from "../assets/avatar.svg";
-import examplegame from "../assets/examplegame.png";
-
 interface IPropsPost {
   avatar?: string;
   name: string;

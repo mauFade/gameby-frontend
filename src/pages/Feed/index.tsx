@@ -1,18 +1,20 @@
 import api from "../../services/api";
 
 import Post from "../../components/Post";
+import Search from "../../components/Search";
 
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-import { Coffee, MagnifyingGlass, NotePencil, UserCircle, SignOut } from "phosphor-react";
+import { Coffee, MagnifyingGlass, NotePencil, UserCircle, SignOut, ArrowLeft } from "phosphor-react";
 import avatar from "../../assets/avatar.svg";
 import examplegame from "../../assets/examplegame.png";
 
 const Feed = () => {
   const [post, setPost] = useState<any>([]);
-
   const [search, setSearch] = useState<string>("");
+  const [searchData, setSearchData] = useState<any>({});
+  const [isSearching, setIsSearching] = useState<boolean>(false);
 
   const navigate = useNavigate();
 
@@ -51,8 +53,10 @@ const Feed = () => {
     event.preventDefault();
 
     api.get(`/users?gamertag=${search}`).then((res: any) => {
+      setIsSearching(true);
+
       console.log(res.data.data);
-      navigate("/search");
+      setSearchData(res.data.data);
     });
   };
 
@@ -60,6 +64,12 @@ const Feed = () => {
     event.preventDefault();
 
     setSearch(event.target.value);
+  };
+
+  const handleBackButton = () => {
+    setSearch("");
+    setSearchData({});
+    setIsSearching(false);
   };
 
   return (
@@ -76,7 +86,7 @@ const Feed = () => {
                 <input
                   value={search}
                   onChange={handleTypeSearch}
-                  placeholder="Buscar um usuário"
+                  placeholder="Buscar um usuário pela gamertag"
                   className="bg-transparent outline-none border-none w-4/5 text-center"
                 />
                 <button className="bg-grey py-2 px-2 rounded-md hover:bg-lightgrey" type="submit">
@@ -109,7 +119,24 @@ const Feed = () => {
             </button>
           </div>
         </header>
-        {post.map(renderPost)}
+        {isSearching == false ? (
+          post.map(renderPost)
+        ) : (
+          <div className="h-full w-full flex flex-col justify-center items-center space-y-3">
+            <button
+              className="bg-lighterblack flex flex-row items-center p-2 rounded-md hover:bg-grey"
+              onClick={handleBackButton}
+            >
+              {<ArrowLeft size={20} className="mr-1" />}Voltar ao feed
+            </button>
+            <Search
+              name={searchData.name}
+              gamertag={searchData.gamertag}
+              city={searchData.city}
+              country={searchData.country}
+            />
+          </div>
+        )}
       </div>
     </div>
   );
